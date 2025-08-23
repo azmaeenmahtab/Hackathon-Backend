@@ -14,16 +14,6 @@ app.use(express.json());
 // Ensure DB connection is initialized
 require("./src/config/db");
 
-// Routes
-// const authRoutes = require("./src/modules/auth");
-// const formSubmitRoutes = require("./routes/formSubmitRoutes");
-
-
-// app.use("/api/auth", authRoutes);
-// app.use("/api/submit", formSubmitRoutes);
-
-
-
 
 // Root Route
 app.get("/", (req, res) => {
