@@ -1,14 +1,21 @@
-const express = require('express');
-const router = express.Router();
+const { Router } = require('express');
+// const AuthRouter = require('../modules/auth/auth.route'); example
 
 
-// Example: Home route
-router.get('/', (req, res) => {
-    res.send('API Home');
-});
+const router = Router();
 
-// User routes
-const userController = require('../controllers/userController');
-router.get('/users', userController.listUsers);
+const moduleRoutes = [
+    {
+        // path: "/auth",
+        // route: AuthRouter
+    },
+    // Add more module routes here
+
+];
+
+
+moduleRoutes.forEach((route) => {
+    router.use(route.path, route.route);
+})
 
 module.exports = router;
