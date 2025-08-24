@@ -1,5 +1,4 @@
-import express from 'express';
-import pool from '../config/db.js'; // Ensure correct path
+const pool = require('../../config/db');
 
 const createEventController = async (req, res) => {
     try {
@@ -290,4 +289,10 @@ const getAllEventsController = async (req, res) => {
     }
 };
 
-export { deleteEventController, createEventController, getEventByIdController, getAllEventsController, updateEventController };
+module.exports = {
+    deleteEventController,
+    createEventController,
+    getEventByIdController,
+    getAllEventsController,
+    updateEventController
+};

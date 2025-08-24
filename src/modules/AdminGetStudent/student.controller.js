@@ -1,4 +1,4 @@
-import pool from '../config/db.js';
+const pool = require('../../config/db');
 
 //GET ALL STUDENTS
 const getAllStudentsController = async (req, res) => {
@@ -34,4 +34,4 @@ const getAllStudentsController = async (req, res) => {
     }
 };
 
-export { getAllStudentsController };
+module.exports = { getAllStudentsController };
