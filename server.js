@@ -14,7 +14,7 @@ const { createEventRouter } = require("./src/modules/CreateEvent/createEvent.rou
 const { locationRouter } = require("./src/modules/LocationHandle/location.route");
 const { studentMyEventsRouter } = require("./src/modules/StudentEvents/studentMyEvents.route");
 const { GlobalAllEventsRouter } = require("./src/modules/GlobalLoadAllEvents/GlobalAllEvents.route");
-
+const { globalEventRegisterRouter } = require("./src/modules/StudentRegister/studentRegister.route");
 
 
 
@@ -51,6 +51,7 @@ app.use("/api/admin", createEventRouter); // Create event route
 app.use("/api/location", locationRouter);
 app.use("/api/student", studentMyEventsRouter); // Student my-events route
 app.use("/api/global", GlobalAllEventsRouter); // Get all events for students
+app.use("/api/global", globalEventRegisterRouter); // Student event registration route
 
 
 
