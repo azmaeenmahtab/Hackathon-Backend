@@ -11,6 +11,7 @@ const { getUserRouter } = require("./src/modules/Get User/getuser.route");
 const { adminStatsRouter } = require("./src/modules/Stats/adminStats.route");
 const { loadAllEventsRouter } = require("./src/modules/LoadAllEvents/loadAllEvents.route");
 const { createEventRouter } = require("./src/modules/CreateEvent/createEvent.route");
+const { locationRouter } = require("./src/modules/LocationHandle/location.route");
 
 require("dotenv").config();
 
@@ -32,6 +33,8 @@ app.use("/auth", getUserRouter); // Get user info route
 app.use("/api/admin", adminStatsRouter); // Admin stats route
 app.use("/api/admin", loadAllEventsRouter); // Load all events for admin
 app.use("/api/admin", createEventRouter); // Create event route
+app.use("/api/location", locationRouter);
+
 
 // Ensure DB connection is initialized
 require("./src/config/db");
