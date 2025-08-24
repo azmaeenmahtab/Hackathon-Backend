@@ -1,7 +1,10 @@
+// Import the database connection pool
 const pool = require('../../config/db');
 
+// Controller to create a new event (admin only)
 const createEventController = async (req, res) => {
     try {
+        // Only allow admins to create events
         if (req.body.role !== "admin") {
             return res.status(403).json({
                 status: false,
@@ -23,6 +26,8 @@ const createEventController = async (req, res) => {
             is_cancelled
         } = req.body;
 
+
+        // Check for duplicate event (same title, start time, and location)
         const duplicateQuery = `
             SELECT * FROM public.events 
             WHERE LOWER(title) = LOWER($1) 
@@ -39,6 +44,8 @@ const createEventController = async (req, res) => {
             });
         }
 
+
+        // Insert the new event into the database
         const query = `
             INSERT INTO public.events (
                 title,
@@ -90,9 +97,10 @@ const createEventController = async (req, res) => {
     }
 };
 
-//DELETE EVENT
+// Controller to delete an event by ID (admin only)
 const deleteEventController = async (req, res) => {
     try {
+        // Only allow admins to delete events
         if (req.body.role !== "admin") {
             return res.status(403).json({
                 status: false,
@@ -102,6 +110,8 @@ const deleteEventController = async (req, res) => {
 
         const { id } = req.params; // Event ID from URL
 
+
+        // Delete the event from the database
         const query = `DELETE FROM public.events WHERE id = $1 RETURNING *;`;
         const result = await pool.query(query, [id]);
 
@@ -127,9 +137,10 @@ const deleteEventController = async (req, res) => {
 
 
 
-//UPDATE EVENT
+// Controller to update an event by ID (admin only)
 const updateEventController = async (req, res) => {
     try {
+        // Only allow admins to update events
         if (req.body.role !== "admin") {
             return res.status(403).json({
                 status: false,
@@ -151,6 +162,8 @@ const updateEventController = async (req, res) => {
             is_cancelled
         } = req.body;
 
+
+        // Update the event in the database
         const query = `
             UPDATE public.events
             SET
@@ -205,9 +218,10 @@ const updateEventController = async (req, res) => {
     }
 };
 
-//GET EVENT BY ID
+// Controller to get a single event by ID (admin only)
 const getEventByIdController = async (req, res) => {
     try {
+        // Only allow admins to access event details
         if (req.body.role !== "admin") {
             return res.status(403).json({
                 status: false,
@@ -217,6 +231,8 @@ const getEventByIdController = async (req, res) => {
 
         const { id } = req.params;
 
+
+        // Fetch the event from the database
         const query = `SELECT * FROM public.events WHERE id = $1;`;
         const result = await pool.query(query, [id]);
 
@@ -243,9 +259,10 @@ const getEventByIdController = async (req, res) => {
     }
 };
 
-//GET ALL EVENT
+// Controller to get all events (admin only, with optional filters)
 const getAllEventsController = async (req, res) => {
     try {
+        // Only allow admins to access all events
         if (req.body.role !== "admin") {
             return res.status(403).json({
                 status: false,
@@ -253,11 +270,15 @@ const getAllEventsController = async (req, res) => {
             });
         }
 
+        // Optional filters: category and upcoming
         const { category, upcoming } = req.query;
 
+
+        // Build the query with optional filters
         let query = `SELECT * FROM public.events WHERE 1=1`;
         const values = [];
         let index = 1;
+
 
         if (category) {
             query += ` AND category = $${index}`;
@@ -289,6 +310,8 @@ const getAllEventsController = async (req, res) => {
     }
 };
 
+
+// Export all controllers
 module.exports = {
     deleteEventController,
     createEventController,

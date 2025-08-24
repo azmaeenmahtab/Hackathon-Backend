@@ -8,6 +8,9 @@ const { Router } = require("./src/modules/auth/signup.route");
 
 const { loginRouter } = require("./src/modules/auth/login.route");
 const { getUserRouter } = require("./src/modules/Get User/getuser.route");
+const { adminStatsRouter } = require("./src/modules/Stats/adminStats.route");
+const { loadAllEventsRouter } = require("./src/modules/LoadAllEvents/loadAllEvents.route");
+const { createEventRouter } = require("./src/modules/CreateEvent/createEvent.route");
 
 require("dotenv").config();
 
@@ -26,6 +29,9 @@ app.use("/api/event", eventRouter); // Event route
 app.use("/api/student", studentRouter); // Get all student route
 app.use("/api/event", registrationRouter); // Student registration route
 app.use("/auth", getUserRouter); // Get user info route
+app.use("/api/admin", adminStatsRouter); // Admin stats route
+app.use("/api/admin", loadAllEventsRouter); // Load all events for admin
+app.use("/api/admin", createEventRouter); // Create event route
 
 // Ensure DB connection is initialized
 require("./src/config/db");
