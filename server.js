@@ -6,6 +6,9 @@ const { studentRouter } = require("./src/modules/AdminGetStudent/student.route")
 const { registrationRouter } = require("./src/modules/StudentEvent/studentInEvent.router");
 const { Router } = require("./src/modules/auth/signup.route");
 
+const { loginRouter } = require("./src/modules/auth/login.route");
+const { getUserRouter } = require("./src/modules/Get User/getuser.route");
+
 require("dotenv").config();
 
 const app = express();
@@ -15,11 +18,14 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-//ROUTES
-app.use("/api/signup", Router);//Event route
-app.use("/api/event", eventRouter);//Event route
-app.use("/api/student", studentRouter);//get all student route
-app.use("/api/event", registrationRouter)//Student registration route
+
+// ROUTES
+app.use("/api/signup", Router); // Signup route
+app.use("/api/login", loginRouter); // Login route
+app.use("/api/event", eventRouter); // Event route
+app.use("/api/student", studentRouter); // Get all student route
+app.use("/api/event", registrationRouter); // Student registration route
+app.use("/auth", getUserRouter); // Get user info route
 
 // Ensure DB connection is initialized
 require("./src/config/db");
