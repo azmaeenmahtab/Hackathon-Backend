@@ -15,7 +15,8 @@ const { locationRouter } = require("./src/modules/LocationHandle/location.route"
 const { studentMyEventsRouter } = require("./src/modules/StudentEvents/studentMyEvents.route");
 const { GlobalAllEventsRouter } = require("./src/modules/GlobalLoadAllEvents/GlobalAllEvents.route");
 const { globalEventRegisterRouter } = require("./src/modules/StudentRegister/studentRegister.route");
-
+const { unregisterRouter } = require("./src/modules/Unregister/unregister.route");
+const { DeleteEventRouter } = require("./src/modules/DeleteEvents/deleteEvent.route");
 
 
 
@@ -52,6 +53,11 @@ app.use("/api/location", locationRouter);
 app.use("/api/student", studentMyEventsRouter); // Student my-events route
 app.use("/api/global", GlobalAllEventsRouter); // Get all events for students
 app.use("/api/global", globalEventRegisterRouter); // Student event registration route
+app.use("/api/global", unregisterRouter); // Student event unregistration route
+app.use("/api/admin", DeleteEventRouter); // Admin soft delete event route
+
+
+
 
 
 
