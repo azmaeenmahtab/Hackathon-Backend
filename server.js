@@ -27,7 +27,7 @@ require("./src/config/db");
 
 // Root Route
 app.get("/", (req, res) => {
-    res.send("Welcome to CoachPro Backend!");
+    res.send("Welcome to Hackathon Backend!");
 });
 
 
